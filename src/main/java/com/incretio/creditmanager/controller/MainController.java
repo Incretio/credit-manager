@@ -1,4 +1,4 @@
-package com.incretio.creditmanager;
+package com.incretio.creditmanager.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
