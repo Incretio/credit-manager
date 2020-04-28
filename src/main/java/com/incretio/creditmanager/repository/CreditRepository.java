@@ -21,4 +21,14 @@ public class CreditRepository {
         return new ArrayList<>(stockMock.getCreditList());
     }
 
+    public Credit getByUid(long uid) {
+        return stockMock.getCreditList().stream()
+                        .filter(credit -> credit.getUid() == uid)
+                        .findFirst()
+                        .orElseThrow(() -> new RuntimeException("Credit did not find"));
+    }
+
+    public Credit addAndGetCredit(String creditName) {
+        return stockMock.createCredit(creditName);
+    }
 }

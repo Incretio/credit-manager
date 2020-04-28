@@ -15,12 +15,18 @@ public class StockMock {
     @PostConstruct
     public void init() {
         creditList = new ArrayList<>();
-        creditList.add(new Credit("credit1"));
-        creditList.add(new Credit("credit2"));
+        creditList.add(new Credit(1, "credit1"));
+        creditList.add(new Credit(2, "credit2"));
     }
 
     public List<Credit> getCreditList() {
         return creditList;
+    }
+
+    public Credit createCredit(String creditName) {
+        Credit credit = new Credit(creditList.size() + 1, creditName);
+        creditList.add(credit);
+        return credit;
     }
 
 }

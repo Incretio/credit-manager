@@ -21,4 +21,11 @@ public class CreditService {
         return creditRepository.getAllCredits();
     }
 
+    public Credit getByUid(long uid) {
+        return creditRepository.getByUid(uid);
+    }
+
+    public Credit addAndGetCredit(String creditName) {
+        return creditRepository.addAndGetCredit(creditName);
+    }
 }

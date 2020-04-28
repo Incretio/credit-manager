@@ -4,8 +4,7 @@ import com.incretio.creditmanager.service.CreditService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("credit")
@@ -22,6 +21,18 @@ public class CreditContoller {
     public String creditList(Model model) {
         model.addAttribute("creditsList", creditService.getAllCredits());
         return "credit_list";
+    }
+
+    @PostMapping("add")
+    public String addCredit(Model model, @RequestParam("name") String name) {
+        model.addAttribute("credit", creditService.addAndGetCredit(name));
+        return "credit_details";
+    }
+
+    @GetMapping("/details/{uid}")
+    public String addCredit(Model model, @PathVariable("uid") Long uid) {
+        model.addAttribute("credit", creditService.getByUid(uid));
+        return "credit_details";
     }
 
 }
