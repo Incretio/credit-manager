@@ -28,4 +28,8 @@ public class CreditService {
     public Credit addAndGetCredit(String creditName) {
         return creditRepository.addAndGetCredit(creditName);
     }
+
+    public void deleteByUid(Long uid) {
+        creditRepository.deleteByUid(uid);
+    }
 }

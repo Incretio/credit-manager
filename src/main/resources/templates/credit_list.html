@@ -16,16 +16,18 @@
         <thead>
         <tr>
             <th>Название</th>
+            <th>Действие</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="credit : ${creditsList}">
-            <td th:text="${credit.name}"></td>
+            <td><a th:href="@{'/credit/details/' + ${credit.uid}}" th:text="${credit.name}"></a> </td>
+            <td><a class="btn btn-default" th:href="@{'/credit/delete/' + ${credit.uid}}" role="button">Удалить</a></td>
         </tr>
         </tbody>
     </table>
 
-    <form class="form-inline" th:action="@{/credit/add}" method="post">
+    <form class="form-inline" th:action="@{'/credit/add'}" method="post">
         <div class="form-group">
             <input type="text" class="form-control" id="name" name="name" placeholder="Новый кредит...">
         </div>

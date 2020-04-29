@@ -35,4 +35,11 @@ public class CreditContoller {
         return "credit_details";
     }
 
+    @GetMapping("/delete/{uid}")
+    public String deleteCredit(Model model, @PathVariable("uid") Long uid) {
+        creditService.deleteByUid(uid);
+        model.addAttribute("creditsList", creditService.getAllCredits());
+        return "credit_list";
+    }
+
 }

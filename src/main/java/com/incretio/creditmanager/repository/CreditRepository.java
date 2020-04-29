@@ -31,4 +31,8 @@ public class CreditRepository {
     public Credit addAndGetCredit(String creditName) {
         return stockMock.createCredit(creditName);
     }
+
+    public void deleteByUid(Long uid) {
+        stockMock.getCreditList().removeIf(credit -> credit.getUid() == uid);
+    }
 }
