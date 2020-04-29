@@ -32,4 +32,8 @@ public class CreditService {
     public void deleteByUid(Long uid) {
         creditRepository.deleteByUid(uid);
     }
+
+    public void saveCredit(Credit credit) {
+        creditRepository.saveCredit(credit);
+    }
 }

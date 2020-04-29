@@ -1,5 +1,6 @@
 package com.incretio.creditmanager.controller;
 
+import com.incretio.creditmanager.entity.Credit;
 import com.incretio.creditmanager.service.CreditService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,6 +41,13 @@ public class CreditContoller {
         creditService.deleteByUid(uid);
         model.addAttribute("creditsList", creditService.getAllCredits());
         return "credit_list";
+    }
+
+    @PostMapping("/save")
+    public String saveCredit(Model model, @RequestBody Credit credit) {
+        creditService.saveCredit(credit);
+        model.addAttribute("credit", credit);
+        return "credit_details";
     }
 
 }
