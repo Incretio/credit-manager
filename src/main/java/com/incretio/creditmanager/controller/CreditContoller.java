@@ -26,8 +26,8 @@ public class CreditContoller {
 
     @PostMapping("add")
     public String addCredit(Model model, @RequestParam("name") String name) {
-        model.addAttribute("credit", creditService.addAndGetCredit(name));
-        return "credit_details";
+        Credit credit = creditService.addAndGetCredit(name);
+        return "redirect:/credit/details/" + credit.getUid();
     }
 
     @GetMapping("/details/{uid}")

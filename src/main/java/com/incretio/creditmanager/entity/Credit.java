@@ -9,7 +9,7 @@ public class Credit {
     private double objectPrice;
     private double firstPayment;
     private double startCreditRate;
-    private LocalDate startDate;
+    private LocalDate startDate = LocalDate.now();
     private int payoutPeriodMonths;
 
     public Credit(long uid, String name) {
