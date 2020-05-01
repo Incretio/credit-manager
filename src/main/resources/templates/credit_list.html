@@ -22,8 +22,8 @@
         </thead>
         <tbody>
         <tr th:each="credit : ${creditsList}">
-            <td><a th:href="@{'/credit/details/' + ${credit.uid}}" th:text="${credit.name}"></a> </td>
-            <td><a class="btn btn-default" th:href="@{'/credit/delete/' + ${credit.uid}}" role="button">Удалить</a></td>
+            <td><a th:href="@{'/credit/details/' + ${credit.id}}" th:text="${credit.name}"></a> </td>
+            <td><a class="btn btn-default" th:href="@{'/credit/delete/' + ${credit.id}}" role="button">Удалить</a></td>
         </tr>
         </tbody>
     </table>

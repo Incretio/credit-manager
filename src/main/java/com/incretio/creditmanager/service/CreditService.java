@@ -18,22 +18,31 @@ public class CreditService {
     }
 
     public List<Credit> getAllCredits() {
-        return creditRepository.getAllCredits();
+        return creditRepository.findAll();
     }
 
-    public Credit getByUid(long uid) {
-        return creditRepository.getByUid(uid);
+    public Credit findById(long id) {
+        return creditRepository
+            .findById(id)
+            .orElseThrow(() -> new RuntimeException("Credit did not find"));
     }
 
-    public Credit addAndGetCredit(String creditName) {
-        return creditRepository.addAndGetCredit(creditName);
+    public void deleteById(Long id) {
+        creditRepository.deleteById(id);
     }
 
-    public void deleteByUid(Long uid) {
-        creditRepository.deleteByUid(uid);
+    public Credit saveCredit(String creditName) {
+        Credit credit = new Credit(creditName);
+        System.out.println(credit);
+        credit = creditRepository.save(new Credit(creditName));
+        System.out.println(credit);
+        return credit;
     }
 
-    public void saveCredit(Credit credit) {
-        creditRepository.saveCredit(credit);
+    public Credit saveCredit(Credit credit) {
+
+        Credit credit1 = creditRepository.save(credit);
+        System.out.println(credit1);
+        return credit1;
     }
 }
