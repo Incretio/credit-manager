@@ -1,4 +1,4 @@
-package com.incretio.creditmanager.repository.converter;
+package com.incretio.creditmanager.conf.converter;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

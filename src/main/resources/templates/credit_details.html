@@ -10,59 +10,88 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ru.min.js"></script>
+    <style>
+        #credit-name {
+            width: 21.4%;
+        }
+        #credit-name-input {
+            width: 78.6%;
+        }
+        .column {
+            float: left;
+            width: 50%;
+        }
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
 </head>
 <body>
 
-<div class="container">
-    <a class="btn btn-default" th:href="@{'/credit/list'}" role="button">К списку кредитов</a>
-    <h1>Описание кредита:</h1>
-
-    <form class="form-horizontal" id="credit-details-form">
-        <input type="text" id="id" name="id" th:value="${credit.id}" hidden>
-        <div class="form-group">
-            <label for="name" class="col-sm-2 control-label">Название кредита:</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="name" name="name" th:value="${credit.name}">
+    <div class="container">
+        <a class="btn btn-default" th:href="@{'/credit/list'}" role="button">К списку кредитов</a>
+        <h1>Описание кредита:</h1>
+        <form class="form-horizontal" id="credit-details-form">
+            <div class="form-group">
+                <label for="name" id="credit-name" class="col-sm-2 control-label">Название кредита:</label>
+                <div class="col-sm-9" id="credit-name-input">
+                    <input type="text" class="form-control" id="name" name="name" th:value="${credit.name}">
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="objectPrice" class="col-sm-2 control-label">Стоимость объекта:</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="objectPrice" name="objectPrice" th:value="${credit.objectPrice}">
+            <div class="column">
+                <input type="text" id="id" name="id" th:value="${credit.id}" hidden>
+                <div class="form-group">
+                    <label for="objectPrice" class="col-sm-5 control-label">Стоимость объекта:</label>
+                    <div class="col-sm-7">
+                        <input type="number" min="0" class="form-control" id="objectPrice" name="objectPrice"
+                               th:value="${#numbers.formatDecimal(credit.objectPrice,1,2,'POINT')}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="firstPayment" class="col-sm-5 control-label">Первоначальный платёж:</label>
+                    <div class="col-sm-7">
+                        <input type="number" min="0" class="form-control" id="firstPayment" name="firstPayment"
+                               th:value="${#numbers.formatDecimal(credit.firstPayment,1,2,'POINT')}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="startCreditRate" class="col-sm-5 control-label">Начальная кредитная ставка:</label>
+                    <div class="col-sm-7">
+                        <input type="number" min="0" class="form-control" id="startCreditRate" name="startCreditRate"
+                               th:value="${#numbers.formatDecimal(credit.startCreditRate,1,2,'POINT')}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="startDate" class="col-sm-5 control-label">Дата оформления кредита:</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" id="startDate" name="startDate" th:value="${credit.startDate}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="payoutPeriodMonths" class="col-sm-5 control-label">Срок кредитования (мес.):</label>
+                    <div class="col-sm-7">
+                        <input type="number" min="0" class="form-control" id="payoutPeriodMonths" name="payoutPeriodMonths" th:value="${credit.payoutPeriodMonths}">
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="firstPayment" class="col-sm-2 control-label">Первоначальный платёж:</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="firstPayment" name="firstPayment" th:value="${credit.firstPayment}">
+            <div class="column">
+                <div id="calculate-result">
+                </div>
             </div>
+        </form>
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default" id="save-credit">Сохранить</button>
+            <button type="submit" class="btn btn-default" id="calculate-credit">Расчитать</button>
         </div>
-        <div class="form-group">
-            <label for="startCreditRate" class="col-sm-2 control-label">Начальная кредитная ставка:</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="startCreditRate" name="startCreditRate" th:value="${credit.startCreditRate}">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="startDate" class="col-sm-2 control-label">Дата оформления кредита:</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="startDate" name="startDate" th:value="${credit.startDate}">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="payoutPeriodMonths" class="col-sm-2 control-label">Срок кредитования (мес.):</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="payoutPeriodMonths" name="payoutPeriodMonths" th:value="${credit.payoutPeriodMonths}">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default" id="save-credit">Сохранить</button>
-                <button type="submit" class="btn btn-default" id="calculate-credit">Расчитать</button>
-            </div>
-        </div>
-    </form>
+    </div>
 
     <script>
         $('#startDate').datepicker({
@@ -74,12 +103,10 @@
         $("#save-credit").click(
             function (event) {
                 event.preventDefault();
-                let formData = {};
-                $("#credit-details-form").serializeArray().forEach((value) => formData[value.name]=value.value);
                 $.ajax({
                     type: "POST",
                     url: "[[@{/credit/save}]]",
-                    data: JSON.stringify(formData),
+                    data: JSON.stringify(getFormData()),
                     success: function(){
                         document.location.reload()
                     },
@@ -90,8 +117,26 @@
         $("#calculate-credit").click(
             function (event) {
                 event.preventDefault();
-                console.log("calculate");
+                $.ajax({
+                    type: "POST",
+                    url: "[[@{/credit/calculate}]]",
+                    data: JSON.stringify(getFormData()),
+                    success: function(data){
+                        $("#calculate-result")[0].innerHTML = data;
+                    },
+                    error: function(data) {
+                        console.log(data);
+                    },
+                    // dataType: "json",
+                    contentType : "application/json"
+                });
             });
+
+        function getFormData() {
+            let formData = {};
+            $("#credit-details-form").serializeArray().forEach((value) => formData[value.name]=value.value);
+            return formData;
+        }
 
     </script>
 

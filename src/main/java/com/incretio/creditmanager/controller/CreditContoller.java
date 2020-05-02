@@ -1,5 +1,6 @@
 package com.incretio.creditmanager.controller;
 
+import com.incretio.creditmanager.business.CreditCalculate;
 import com.incretio.creditmanager.entity.Credit;
 import com.incretio.creditmanager.service.CreditService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,12 @@ public class CreditContoller {
     @ResponseBody
     public Credit saveCredit(Model model, @RequestBody Credit credit) {
         return creditService.saveCredit(credit);
+    }
+
+    @PostMapping("/calculate")
+    public String calculate(Model model, @RequestBody Credit credit) {
+        model.addAttribute("creditCalculate", new CreditCalculate(credit));
+        return "credit_calculation_result";
     }
 
 }

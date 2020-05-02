@@ -1,0 +1,36 @@
+<form class="form-horizontal" xmlns:th="http://www.thymeleaf.org">
+    <div class="form-group">
+        <label for="creditAmount" class="col-sm-5 control-label">Сумма кредита:</label>
+        <div class="col-sm-7">
+            <input type="text" class="form-control" id="creditAmount" readonly
+                   th:value="${#numbers.formatDecimal(creditCalculate.creditAmount,1,2,'POINT')}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="monthlyPayment" class="col-sm-5 control-label">Ежемесячный платёж:</label>
+        <div class="col-sm-7">
+            <input type="text" class="form-control" id="monthlyPayment"  readonly
+                   th:value="${#numbers.formatDecimal(creditCalculate.monthlyPayment,1,2,'POINT')}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="totalAmountPayment" class="col-sm-5 control-label">Общая сумма платежа:</label>
+        <div class="col-sm-7">
+            <input type="text" class="form-control" id="totalAmountPayment"  readonly
+                   th:value="${#numbers.formatDecimal(creditCalculate.totalAmountPayment,1,2,'POINT')}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="overpaymentAmount" class="col-sm-5 control-label">Сумма переплаты:</label>
+        <div class="col-sm-7">
+            <input type="text" class="form-control" id="overpaymentAmount"  readonly
+                   th:value="${#numbers.formatDecimal(creditCalculate.overpaymentAmount,1,2,'POINT')}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="stopDateCredit" class="col-sm-5 control-label">Дата закрытия кредита:</label>
+        <div class="col-sm-7">
+            <input type="text" class="form-control" id="stopDateCredit" th:value="${creditCalculate.stopDateCredit}" readonly>
+        </div>
+    </div>
+</form>
